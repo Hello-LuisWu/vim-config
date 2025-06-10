@@ -4,7 +4,6 @@
 
 * [克隆 vimrc](#克隆-vimrc)
 * [安装 vim-plug](#安装-vim-plug)
-* [清除多余文件 (步骤可略过)](#清除多余文件-步骤可略过)
 * [添加配置内容](#添加配置内容)
 
 <!-- vim-markdown-toc -->
@@ -25,7 +24,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 <details>
 <summary>
-### 清除多余文件 (步骤可略过)
+清除多余文件 (步骤可略过)
 </summary>
 输入命令
 
@@ -49,14 +48,7 @@ ls -a ./ | egrep -v '(plug.vim)' | xargs rm -rf
 
 </details>
 
-
 ### 添加配置内容
-
-用 vim 打开 `.vimrc` 配置文件
-
-```
-vim ~/.vimrc
-```
 
 终端执行如下代码：
 
