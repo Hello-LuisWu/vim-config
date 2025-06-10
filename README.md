@@ -22,8 +22,11 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://gitee.com/hello-luiswu/vim-plug/raw/master/plug.vim
 ```
 
-### 清除多余文件 (步骤可略过)
 
+<details>
+<summary>
+### 清除多余文件 (步骤可略过)
+</summary>
 输入命令
 
 ```
@@ -43,6 +46,8 @@ rm -rf `ls -a ./ | egrep -v '(plug.vim)'`
 或
 ls -a ./ | egrep -v '(plug.vim)' | xargs rm -rf
 ```
+
+</details>
 
 
 ### 添加配置内容
