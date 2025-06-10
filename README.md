@@ -53,9 +53,10 @@ ls -a ./ | egrep -v '(plug.vim)' | xargs rm -rf
 vim ~/.vimrc
 ```
 
-复制以下内容并粘贴到 `.vimrc` 配置文件里
+终端执行如下代码：
 
 ```
+cat << 'EOF' > ~/.vimrc
 " plugins 文件 最好优先加载。这配置才能读取主题等插件文件
 source ~/.config/vimrc/plugins.vim
 source ~/.config/vimrc/option.vim
@@ -68,6 +69,7 @@ for s:file in split(glob(s:plugin_dir . '/*.vim'), '\n')
     execute 'source' fnameescape(s:file)
   endif
 endfor
+EOF
 ```
 
 使用以下命令安装插件
