@@ -69,7 +69,7 @@ endfor
 EOF
 ```
 
-使用以下命令安装插件
+使用以下vim命令安装插件
 
 ```
 :PlugIntakll
