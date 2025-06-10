@@ -11,7 +11,7 @@
 ### 克隆 vimrc
 
 ```
-git clone --depth 1 https://gitee.com/hello-luiswu/vimrc.git ~/.config/vimrc
+git clone --depth 1 https://github.com/Hello-LuisWu/vim-dotfiles.git ~/.config/vimrc
 ```
 
 
