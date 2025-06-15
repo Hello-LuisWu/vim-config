@@ -97,41 +97,37 @@ function! CurDir()
 endfunction
 set virtualedit=block,onemore " 光标在 normol 模式下,可以定位到最后一个字的后面
 
-" let g:currentmode={
-"        \ 'n'  : 'N',
-"        \ 'v'  : 'V',
-"        \ 'V'  : 'V·L',
-"        \ "\<C-V>" : 'V·B',
-"        \ 'i'  : 'I',
-"        \ 'R'  : 'R',
-"        \ 'Rv' : 'V·Replace',
-"        \ 'c'  : 'C',
-"    \}
-" set statusline=%1*\ %{(g:currentmode[mode()])}\ %2*\ %t\ %3*\ %m%r%h\ %=\ %l:%p%%\ %2*%{((&fenc==\"\")?\"\":\"\ \".&fenc)}\ %1*\ %Y\
-" 显示状态栏（确保一直可见）
 " 自定义状态栏高亮组
-" 使用 ctermfg / ctermbg 设置 256 色状态栏配色
-" highlight StatusMode ctermfg=15 ctermbg=24 cterm=bold
-" highlight StatusFile ctermfg=15 ctermbg=237
-" highlight StatusFlag ctermfg=15 ctermbg=53
-" highlight StatusInfo ctermfg=15 ctermbg=29" 定义状态栏格式
-" 状态栏模式：Gruvbox 黄色（#fabd2f） + 背景色（#3c3836）
-highlight StatusMode ctermfg=214 ctermbg=6 cterm=bold guifg=#fabd2f guibg=#008080
+" 模式区域：Gruvbox 黄（#fabd2f） + 状态栏背景（#3c3836）
+highlight StatusMode ctermfg=214 ctermbg=237 cterm=bold guifg=#fabd2f guibg=#3c3836
 
-" 文件名区域：Gruvbox 淡灰（#ebdbb2） + 暗背景（#282828）
-highlight StatusFile ctermfg=223 ctermbg=23 guifg=#ebdbb2 guibg=#005f5f
+" 文件名区域：Gruvbox 淡灰（#ebdbb2） + 深背景（#282828）
+highlight StatusFile ctermfg=223 ctermbg=235 guifg=#ebdbb2 guibg=#282828
 
-" 状态标志（只读、修改）：Gruvbox 红（#fb4934） + 暗背景
-highlight StatusFlag ctermfg=167 ctermbg=238 guifg=#fb4934 guibg=#303030
+" 状态标志（只读、修改）：Gruvbox 红（#fb4934） + 深灰背景（#3c3836）
+highlight StatusFlag ctermfg=167 ctermbg=237 guifg=#fb4934 guibg=#3c3836
 
-" 信息区域（行列、编码等）：Gruvbox 绿（#b8bb26） + 暗背景
+" 信息区域（行列、编码等）：Gruvbox 绿（#b8bb26） + 状态栏背景（#3c3836）
 highlight StatusInfo ctermfg=142 ctermbg=237 guifg=#b8bb26 guibg=#3c3836
-set statusline=
+" set statusline=
+
+let g:currentmode={
+       \ 'n'  : 'Normal',
+       \ 'v'  : 'Visual',
+       \ 'V'  : 'V·Line',
+       \ "\<C-V>" : 'V·block',
+       \ 'i'  : 'Insert',
+       \ 'R'  : 'Replace',
+       \ 'Rv' : 'V·Replace',
+       \ 'c'  : 'Command',
+   \}
+" set statusline=%1*\ %{(g:currentmode[mode()])}\ %2*\ %t\ %3*\ %m%r%h\ %=\ %l:%p%%\ %2*%{((&fenc==\"\")?\"\":\"\ \".&fenc)}\ %1*\ %Y\
 
 " 左侧：模式、文件名、只读、是否修改
-set statusline+=%#StatusMode#\ %{mode()}\         " 当前模式
+set statusline+=%#StatusMode#\ %{(g:currentmode[mode()])}\         " 当前模式
 set statusline+=%#StatusFile#\ %f\                " 当前文件名（带路径）
-set statusline+=%#StatusFlag#%r                 " 只读标志 [RO]
+" set statusline+=%#StatusFlag#%r                 " 只读
+set statusline+=%#StatusFlag#%{&readonly?'[Not\ edit]':''}    " 显示只读字符为 No-edit
 set statusline+=%#StatusFlag#\ %m                 " 修改标志 [+] 表示修改未保存
 
 " 分隔符（左对齐与右对齐之间）
@@ -143,7 +139,7 @@ set statusline+=%#StatusInfo#\ %lL " 当前行号:列号
 set statusline+=\ %{&fileencoding} " 文件编码
 set statusline+=\ %{&fileformat} " 换行符格式（unix/dos）
 set statusline+=\ %Y\             " 文件类型（filetype）
-set statusline+=%#StatusMode#\ LOVE\ DJL\  " 字符
+set statusline+=%#StatusFile#\ LOVE\ DJL\  " 字符
 
 "标签页
 set showtabline=2 " 2 总是显示标签页，0 不显示，1 出现多个标签页才显示

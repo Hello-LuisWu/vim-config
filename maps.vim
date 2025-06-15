@@ -3,6 +3,9 @@
 " Datesss: 2025-06-08 10:38
 "position: /Users/luis/.config/vimrc/maps.vim
 
+
+
+" 基础
 let mapleader = " "
 inoremap jj <C-[>
 nnoremap U <C-r>
@@ -37,8 +40,8 @@ endfor
 
 
 for mode in ['n', 'x']
-	execute mode . 'noremap H 0'
-	execute mode . 'noremap L $'
+	execute mode . 'noremap H g0'
+	execute mode . 'noremap L g$'
 	execute mode . 'noremap J G'
 	execute mode . 'noremap K gg'
 endfor
@@ -125,6 +128,7 @@ nnoremap <Leader>fg :Rg<CR>
 nnoremap <Leader>T :TagbarToggle<CR>
 let g:tagbar_width = 30               " 侧边栏宽度
 
+
 nnoremap <left> :vertical resize -2<CR>
 nnoremap <right> :vertical resize +2<CR>
 nnoremap <down> :resize +2<CR>
@@ -133,6 +137,8 @@ nnoremap <up> :resize -2<CR>
 " tab 配置
 nnoremap <leader><Tab> :tabnext<CR>
 nnoremap <leader><S-Tab> :tabprevious<CR>
+" nnoremap <leader><Tab> gt
+" nnoremap <leader><S-Tab> gT
 nnoremap <leader>tc :tabclose<CR>
 nnoremap <leader>to :tabonly<CR>
 
@@ -160,21 +166,38 @@ nnoremap <C-l> <C-w>l             " 光标焦点右移
 
 command! -nargs=1 Rename call s:RenameFile(<f-args>)
 function! s:RenameFile(newname)
-  let old = expand('%')
-  if filereadable(old)
-    call rename(old, a:newname)
-    exec 'edit ' . a:newname
-    call delete(old)
-  else
-    echoerr "当前缓冲区文件不存在或不可重命名"
-  endif
+	let old = expand('%')
+	if filereadable(old)
+		call rename(old, a:newname)
+		exec 'edit ' . a:newname
+
+		call delete(old)
+	else
+		echoerr "当前缓冲区文件不存在或不可重命名"
+	endif
 endfunction
 nnoremap <leader>wr :Rename<space>  " 重命名文件
 
 nnoremap <C-f> <C-f>zz
 nnoremap <C-b> <C-b>zz
-
+" 可视模式下粘贴后保持选中状态（便于多次粘贴或格式调整）
+vnoremap p pgv<Esc>
 nnoremap <c-e> :NERDTreeToggle<CR>
+
+" nnoremap ,a mpgUiW"pciW<C-R>=substitute(@p,'-','_','ge')<CR><ESC>`p:delm p<cr>
+" inoremap ,a <ESC>mpgUiW"pciW<C-R>=substitute(@p,'-','_','ge')<CR><ESC>`p:delm p<CR>a
+
+" 将选中内容转为小写
+vnoremap <leader>u gu
+
+" 将选中内容转为大写
+vnoremap <leader>U gU
+
+" 当前单词一键大写（normal模式）
+nnoremap <leader>U gUiw
+
+" 当前单词一键小写
+nnoremap <leader>u guiw
 
 " This is maps setup of the Markdown ===
 autocmd Filetype markdown inoremap --- <Enter>---<Enter><br/><Enter>

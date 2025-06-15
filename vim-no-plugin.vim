@@ -37,8 +37,8 @@ endfor
 
 
 for mode in ['n', 'x']
-	execute mode . 'noremap H 0'
-	execute mode . 'noremap L $'
+	execute mode . 'noremap H g0'
+	execute mode . 'noremap L g$'
 	execute mode . 'noremap J G'
 	execute mode . 'noremap K gg'
 endfor
@@ -121,6 +121,8 @@ nnoremap <up> :resize -2<CR>
 " tab 配置
 nnoremap <leader><Tab> :tabnext<CR>
 nnoremap <leader><S-Tab> :tabprevious<CR>
+" nnoremap <leader><Tab> gt
+" nnoremap <leader><S-Tab> gT
 nnoremap <leader>tc :tabclose<CR>
 nnoremap <leader>to :tabonly<CR>
 
@@ -161,6 +163,21 @@ nnoremap <leader>wr :Rename<space>  " 重命名文件
 
 nnoremap <C-f> <C-f>zz
 nnoremap <C-b> <C-b>zz
+
+" nnoremap ,a mpgUiW"pciW<C-R>=substitute(@p,'-','_','ge')<CR><ESC>`p:delm p<cr>
+" inoremap ,a <ESC>mpgUiW"pciW<C-R>=substitute(@p,'-','_','ge')<CR><ESC>`p:delm p<CR>a
+
+" 将选中内容转为小写
+vnoremap <leader>u gu
+
+" 将选中内容转为大写
+vnoremap <leader>U gU
+
+" 当前单词一键大写（normal模式）
+nnoremap <leader>U gUiw
+
+" 当前单词一键小写
+nnoremap <leader>u guiw
 
 " This is maps setup of the Markdown ===
 autocmd Filetype markdown inoremap --- <Enter>---<Enter><br/><Enter>
