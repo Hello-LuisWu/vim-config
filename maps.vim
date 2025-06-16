@@ -6,10 +6,10 @@
 
 
 " 基础
-let mapleader = " "
-inoremap jj <C-[>
-nnoremap U <C-r>
-nnoremap <CR> :set wrap!<CR>
+let mapleader = " "  " 以空格键为先导键
+inoremap jj <C-[>    " 返回normal模式
+nnoremap U <C-r>    " 重做
+nnoremap <CR> :set wrap!<CR>    " 换行切换
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
