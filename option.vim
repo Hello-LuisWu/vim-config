@@ -127,7 +127,7 @@ let g:currentmode={
 set statusline+=%#StatusMode#\ %{(g:currentmode[mode()])}\         " 当前模式
 set statusline+=%#StatusFile#\ %f\                " 当前文件名（带路径）
 " set statusline+=%#StatusFlag#%r                 " 只读
-set statusline+=%#StatusFlag#%{&readonly?'[Not\ edit]':''}    " 显示只读字符为 No-edit
+set statusline+=%#StatusFlag#%{&readonly?'[]':''}    " 显示只读字符为 No-edit
 set statusline+=%#StatusFlag#\ %m                 " 修改标志 [+] 表示修改未保存
 
 " 分隔符（左对齐与右对齐之间）
