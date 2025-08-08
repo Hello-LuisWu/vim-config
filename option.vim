@@ -1,6 +1,10 @@
-" Author: Luis Wu
-" Editor: VIM
-" Datesss: 2025-06-07 10:01
+" ------------------------------------------------------------------------------
+" Author   : Luis Wu
+" Editor   : Neovim
+" Date     : 2025-07-31 10:58
+" Position : /Users/luis/.config/vimrc/option.vim
+" System   : Darwin 24.3.0
+" ------------------------------------------------------------------------------
 
 " vim 默认配置文件路径：/etc/vim/vimrc; /usr/share/vim/vimrc
 " more color: https://www.ditig.com/publications/256-colors-cheat-sheet
@@ -89,7 +93,6 @@ set cursorline " 突出显示光标所在行（默认样式是underline）
 set confirm " 处理未保存或只读文件的时候，弹出确认
 set noshowmode " 在底部显示当前模式
 set showcmd " 显示输入的命令和可视模式下显示选中的行数 (默认)
-set laststatus=2 " 显示状态行，值为 0 不显示，值为 1 当有多个窗口才显示，值为2 永久显示
 " 获取当前路径，将$HOME转化为~
 function! CurDir()
 	let curdir = substitute(getcwd(), $HOME, "~", "g")
@@ -97,63 +100,117 @@ function! CurDir()
 endfunction
 set virtualedit=block,onemore " 光标在 normol 模式下,可以定位到最后一个字的后面
 
-" 自定义状态栏高亮组
-" 模式区域：Gruvbox 黄（#fabd2f） + 状态栏背景（#3c3836）
-highlight StatusMode ctermfg=214 ctermbg=237 cterm=bold guifg=#fabd2f guibg=#3c3836
-
-" 文件名区域：Gruvbox 淡灰（#ebdbb2） + 深背景（#282828）
-highlight StatusFile ctermfg=223 ctermbg=235 guifg=#ebdbb2 guibg=#282828
-
-" 状态标志（只读、修改）：Gruvbox 红（#fb4934） + 深灰背景（#3c3836）
-highlight StatusFlag ctermfg=167 ctermbg=237 guifg=#fb4934 guibg=#3c3836
-
-" 信息区域（行列、编码等）：Gruvbox 绿（#b8bb26） + 状态栏背景（#3c3836）
-highlight StatusInfo ctermfg=142 ctermbg=237 guifg=#b8bb26 guibg=#3c3836
-" set statusline=
+set laststatus=2 " 显示状态行，值为 0 不显示，值为 1 当有多个窗口才显示，值为2 永久显示
 
 let g:currentmode={
-       \ 'n'  : 'Normal',
-       \ 'v'  : 'Visual',
-       \ 'V'  : 'V·Line',
-       \ "\<C-V>" : 'V·block',
-       \ 'i'  : 'Insert',
-       \ 'R'  : 'Replace',
-       \ 'Rv' : 'V·Replace',
-       \ 'c'  : 'Command',
-   \}
-" set statusline=%1*\ %{(g:currentmode[mode()])}\ %2*\ %t\ %3*\ %m%r%h\ %=\ %l:%p%%\ %2*%{((&fenc==\"\")?\"\":\"\ \".&fenc)}\ %1*\ %Y\
+	\ 'n'  : 'Normal',
+	\ 'v'  : 'Visual',
+	\ 'V'  : 'V·Line',
+	\ "\<C-V>" : 'V·block',
+	\ 'i'  : 'Insert',
+	\ 'R'  : 'Replace',
+	\ 'Rv' : 'V·Replace',
+	\ 'c'  : 'Command',
+\}
 
-" 左侧：模式、文件名、只读、是否修改
-set statusline+=%#StatusMode#\ %{(g:currentmode[mode()])}\         " 当前模式
-set statusline+=%#StatusFile#\ %f\                " 当前文件名（带路径）
-" set statusline+=%#StatusFlag#%r                 " 只读
-set statusline+=%#StatusFlag#%{&readonly?'[]':''}    " 显示只读字符为 No-edit
-set statusline+=%#StatusFlag#\ %m                 " 修改标志 [+] 表示修改未保存
+let g:status_colors = {
+	\ 'L_mode_fg':      '#333333',
+	\ 'L_mode_bg':      '#bb7662',
+	\ 'R_char_fg':      '#1b1447',
+	\ 'R_char_bg':      '#978771',
+	\ 'Both2_fg':       '#b6b136',
+	\ 'Both2_bg':       '#5c503f',
+	\ 'Center_fg':      '#94846f',
+	\ 'Center_bg':      '#493820',
+\ }
 
-" 分隔符（左对齐与右对齐之间）
+let g:status_cterm_colors = {
+	\ 'L_mode_fg':      236,
+	\ 'L_mode_bg':      173,
+	\ 'R_char_fg':      17,
+	\ 'R_char_bg':      144,
+	\ 'Both2_fg':       142,
+	\ 'Both2_bg':       59,
+	\ 'Center_fg':      101,
+	\ 'Center_bg':      52,
+	\ 'cterm':          "bold",
+\ }
+
+execute 'highlight StatusLmode cterm=bold'
+	\ . ' guifg=' . g:status_colors.L_mode_fg
+	\ . ' guibg=' . g:status_colors.L_mode_bg
+	\ . ' ctermfg=' . g:status_cterm_colors.L_mode_fg
+	\ . ' ctermbg=' . g:status_cterm_colors.L_mode_bg
+
+execute 'highlight StatusLmodeIcon'
+	\ . ' guifg=' . g:status_colors.L_mode_bg
+	\ . ' guibg=' . g:status_colors.Both2_bg
+
+execute 'highlight StatusBoth2'
+	\ . ' guifg=' . g:status_colors.Both2_fg
+	\ . ' guibg=' . g:status_colors.Both2_bg
+	\ . ' ctermfg=' . g:status_cterm_colors.Both2_fg
+	\ . ' ctermbg=' . g:status_cterm_colors.Both2_bg
+
+execute 'highlight StatusBoth2Icon'
+	\ . ' guifg=' . g:status_colors.Both2_bg
+	\ . ' guibg=' . g:status_colors.Center_bg
+
+execute 'highlight StatusCenter'
+	\ . ' guifg=' . g:status_colors.Center_fg
+	\ . ' guibg=' . g:status_colors.Center_bg
+	\ . ' ctermfg=' . g:status_cterm_colors.Center_fg
+	\ . ' ctermbg=' . g:status_cterm_colors.Center_bg
+
+execute 'highlight StatusChar'
+	\ . ' cterm=' . g:status_cterm_colors.cterm
+	\ . ' guifg=' . g:status_colors.R_char_fg
+	\ . ' guibg=' . g:status_colors.R_char_bg
+	\ . ' ctermfg=' . g:status_cterm_colors.R_char_fg
+	\ . ' ctermbg=' . g:status_cterm_colors.R_char_bg
+
+
+execute 'highlight StatusCharIcon'
+	\ . ' guifg=' . g:status_colors.R_char_bg
+	\ . ' guibg=' . g:status_colors.Both2_bg
+
+" 检查插件函数是否存在，并处理空分支名
+function! GitBranchStatus() abort
+  if exists('*gitbranch#name')  " 确保插件已加载
+    let l:branch = gitbranch#name()
+    if !empty(l:branch)         " 确保分支名非空
+      return '  ' . l:branch
+    endif
+  endif
+  return ''  " 所有异常情况返回空字符串
+endfunction
+
+set statusline+=%#StatusLmode#\ %{(g:currentmode[mode()])}\            " 模式
+set statusline+=%#StatusLmodeIcon#
+" set statusline+=%#StatusBoth2#\ \ %{gitbranch#name()}\                " Git 分支名称
+set statusline+=%#StatusBoth2#%{GitBranchStatus()}\                " Git 分支名称
+set statusline+=%{&readonly?'[x]':'[v]'}\     " 显示只读字符为 No-edit
+set statusline+=%#StatusBoth2Icon#
+set statusline+=%#StatusCenter#\ %t\                " 当前文件名
+set statusline+=%m\                 " 修改标志 [+] 表示修改未保存
 set statusline+=%=
-
-" 右侧：行号:列号、百分比、编码、换行符类型、文件类型
-set statusline+=%#StatusInfo#\ %lL " 当前行号:列号
-" set statusline+=\ %p%%             " 文件光标百分比位置
-set statusline+=\ %{&fileencoding} " 文件编码
-set statusline+=\ %{&fileformat} " 换行符格式（unix/dos）
-set statusline+=\ %Y\             " 文件类型（filetype）
-set statusline+=%#StatusFile#\ LOVE\ DJL\  " 字符
+set statusline+=\ %l/%L\ %p%%\       " 当前行号:列号
+set statusline+=%#StatusBoth2Icon#
+set statusline+=%#StatusBoth2#\ %{&fileencoding}\    " 文件编码
+set statusline+=%{&fileformat}\       " 换行符格式（unix/dos）
+set statusline+=%{&filetype}\             " 文件类型（filetype）
+set statusline+=%#StatusCharIcon#
+set statusline+=%#StatusChar#\ I\ LOVE\ DJL\  " 字符
 
 "标签页
 set showtabline=2 " 2 总是显示标签页，0 不显示，1 出现多个标签页才显示
 set tabpagemax=15 " 最多可以打开15个标签页，默认10
 
-" 缩进参考线（需要插件如 indentLine）
-" Plug 'Yggdroot/indentLine'  " 安装后启用
-" let g:indentLine_char = '│'  " 缩进线字符
-
 set list                   " 显示 <Tab> 和 <EOL>
 " 控制列表符号
 set listchars=eol:\ ,tab:\|\ ,trail:.,extends:>,precedes:<
 " 控制窗口字符
-set fillchars=vert:\|,eob:\ " 窗口间的分隔符
+set fillchars=vert:\|,eob:\
 
 " 设置补全菜单行为
 set wildmenu " 在命令模式下, 按 Tab 键显示命令菜单 (默认)
@@ -225,7 +282,6 @@ filetype on " 检测文件类型
 filetype plugin on  " 启用文件类型插件
 filetype indent on  " 启用文件类型相关的缩进
 set showmatch "显示匹配的括号
-
 
 " ========== 性能优化 ==========
 set lazyredraw          " 减少重绘（在宏执行时提升性能）

@@ -1,7 +1,7 @@
 " ------------------------------------------------------------------------------
 " Author   : Luis Wu
 " Editor   : VIM
-" Date     : 2025-06-28 05:18
+" Date     : 2025-07-15 22:02
 " Position : /Users/luis/.config/vimrc/maps.vim
 " System   : Darwin 24.3.0
 " ------------------------------------------------------------------------------
@@ -61,6 +61,11 @@ function! UpdateSignatureDate()
 endfunction
 nnoremap <C-u> :call UpdateSignatureDate()<CR>
 nnoremap <C-i> ggO<C-[>:call InsertSignatureSmart()<CR>
+
+
+nnoremap <C-f> <C-f>zz
+nnoremap <C-b> <C-b>zz
+
 
 
 " 基础 以空格键为先导键

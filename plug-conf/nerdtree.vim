@@ -1,14 +1,22 @@
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
+" ======== nerdtree-git-plugin config
+" 禁用 NERDTree 的 Git 状态标志
+let g:NERDTreeGitStatusEnable = 1
+" 是否只显示已变更文件的Git图标
+let g:NERDTreeGitStatusShowClean = 1
+" 自定义 Git 图标
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+	\ 'Modified'  :'✹',
+	\ 'Staged'    :'✚',
+	\ 'Untracked' :'✭',
+	\ 'Renamed'   :'➜',
+	\ 'Unmerged'  :'═',
+	\ 'Deleted'   :'✖',
+	\ 'Dirty'     :'✗',
+	\ 'Ignored'   :'☒',
+	\ 'Clean'     :'✔︎',
+	\ 'Unknown'   :'?',
+\ }
+
 " 显示行号
 let NERDTreeShowLineNumbers                 = 1
 let NERDTreeAutoCenter                      = 1
@@ -27,3 +35,11 @@ let NERDTreeShowBookmarks                   = 1
 "jset guifont=SauceCodePro_Nerd_Font:h11
 let g:NERDTreeDirArrowExpandable  = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
+
+
+
+
+" Start NERDTree when Vim starts with a directory argument.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
