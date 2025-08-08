@@ -1,7 +1,7 @@
 " ------------------------------------------------------------------------------
 " Author   : Luis Wu
 " Editor   : Neovim
-" Date     : 2025-07-31 10:58
+" Date     : 2025-08-08 16:35
 " Position : /Users/luis/.config/vimrc/option.vim
 " System   : Darwin 24.3.0
 " ------------------------------------------------------------------------------
@@ -14,7 +14,14 @@ set nocompatible " 禁用 Vi 兼容模式（确保使用 Vim 的全部功能）
 " 字符编码
 set encoding=utf-8 " Vim 内部编码,  如字符编码格式,如buffer、寄存器、Vim 脚本文件等
 set fileencoding=utf-8 " 写入文件使用的编码
-set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936 " 尝试读取文件时的编码顺序
+" 尝试读取文件时的编码顺序
+set fileencodings=
+			\utf-8,
+			\ucs-bom,
+			\gb18030,
+			\gbk,gb2312,
+			\cp936
+
 set termencoding=utf-8
 " 非所有 Vim 都编译支持中文菜单，加上判断防止报错
 if exists('+langmenu')
@@ -22,7 +29,10 @@ if exists('+langmenu')
 endif
 set helplang=cn " 查询帮助显示的语言
 " set backspace=2 " 让 backspace 生效.不加参数则只能删除新添加的内容
-set backspace=indent,eol,start
+set backspace=
+	\indent,
+	\eol,
+	\start
 
 " 文件备份
 set nobackup " 禁止生成临时备份文件
@@ -36,7 +46,10 @@ set noundofile " 不创建撤销文件
 
 "设置以unix的格式保存文件（Unix换行符）
 set fileformat=unix
-set fileformats=unix,dos,mac
+set fileformats=
+	\unix,
+	\dos,
+	\mac
 
 " 历史记录
 set history=1000  " 命令历史记录数
@@ -81,7 +94,7 @@ set background=dark " 背景颜色为黑色
 set numberwidth=4 " 行号列宽度
 set number " 开启行号
 set relativenumber " 开启相对行号
-" set ruler           " 显示光标位置（行列百分比）
+set ruler           " 显示光标位置（行列百分比）
 set linebreak " 不在单词内部换行
 set nowrap " 禁止换行
 set textwidth=80    " 行宽限制（按需启用）
@@ -98,7 +111,11 @@ function! CurDir()
 	let curdir = substitute(getcwd(), $HOME, "~", "g")
 	return curdir
 endfunction
-set virtualedit=block,onemore " 光标在 normol 模式下,可以定位到最后一个字的后面
+
+" 光标在 normol 模式下,可以定位到最后一个字的后面
+set virtualedit=
+	\block,
+	\onemore
 
 set laststatus=2 " 显示状态行，值为 0 不显示，值为 1 当有多个窗口才显示，值为2 永久显示
 
@@ -208,13 +225,26 @@ set tabpagemax=15 " 最多可以打开15个标签页，默认10
 
 set list                   " 显示 <Tab> 和 <EOL>
 " 控制列表符号
-set listchars=eol:\ ,tab:\|\ ,trail:.,extends:>,precedes:<
+set listchars=
+	\eol:\ ,
+	\tab:\|\ ,
+	\trail:.,
+	\extends:>,
+	\precedes:<
+
 " 控制窗口字符
-set fillchars=vert:\|,eob:\
+set fillchars=
+	\vert:\|,
+	\eob:\
 
 " 设置补全菜单行为
 set wildmenu " 在命令模式下, 按 Tab 键显示命令菜单 (默认)
-set completeopt=menu,menuone,noselect     " 鼠标/键盘弹出补全菜单
+" 鼠标/键盘弹出补全菜单
+set completeopt=
+	\menu,
+	\menuone,
+	\noselect
+
 set shortmess+=c                          " 补全时不显示过多信息
 set pumheight=10                          " 补全菜单最大显示行数
 
@@ -270,9 +300,11 @@ endif
 
 set formatoptions+=mM   "  允许多段落换行处理
 
+set title " 在终端标题显示文件名
+
 
 set mouse=a  " 所有模式启用鼠标（调整窗口大小、点击跳转等）
-set selection=exclusive   " 在可是模式下是否选中光标下的字符,要和selectmode配合使用
+" set selection=exclusive   " 在可是模式下是否选中光标下的字符,要和selectmode配合使用
 set selectmode=mouse,key  " 设置触发“选择模式”的方式：使用鼠标或键盘进入可视模式时进入选择模式（类似 GUI 编辑器行为）
 set matchtime=5
 set scrolloff=5 " 光标离窗口上下边界 5 行时窗口自动滚动
