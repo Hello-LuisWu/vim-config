@@ -1,7 +1,7 @@
 " ------------------------------------------------------------------------------
 " Author   : Luis Wu
 " Editor   : Neovim
-" Date     : 2025-08-08 16:35
+" Date     : 2025-08-11 14:36
 " Position : /Users/luis/.config/vimrc/option.vim
 " System   : Darwin 24.3.0
 " ------------------------------------------------------------------------------
@@ -16,11 +16,11 @@ set encoding=utf-8 " Vim 内部编码,  如字符编码格式,如buffer、寄存
 set fileencoding=utf-8 " 写入文件使用的编码
 " 尝试读取文件时的编码顺序
 set fileencodings=
-			\utf-8,
-			\ucs-bom,
-			\gb18030,
-			\gbk,gb2312,
-			\cp936
+	\utf-8,
+	\ucs-bom,
+	\gb18030,
+	\gbk,gb2312,
+	\cp936
 
 set termencoding=utf-8
 " 非所有 Vim 都编译支持中文菜单，加上判断防止报错
@@ -130,6 +130,8 @@ let g:currentmode={
 	\ 'c'  : 'Command',
 \}
 
+
+
 let g:status_colors = {
 	\ 'L_mode_fg':      '#333333',
 	\ 'L_mode_bg':      '#bb7662',
@@ -196,41 +198,58 @@ function! GitBranchStatus() abort
   if exists('*gitbranch#name')  " 确保插件已加载
     let l:branch = gitbranch#name()
     if !empty(l:branch)         " 确保分支名非空
-      return '  ' . l:branch
+      return ' ' . l:branch
     endif
   endif
   return ''  " 所有异常情况返回空字符串
 endfunction
 
+let g:statuslineIcon = {
+	\ 'LeftIcon':    '',
+	\ 'RightIcon':   '',
+	\ 'LeftIcon2':   '',
+	\ 'RightIcon2':  '',
+\}
+
 set statusline+=%#StatusLmode#\ %{(g:currentmode[mode()])}\            " 模式
-set statusline+=%#StatusLmodeIcon#
+set statusline+=%#StatusLmodeIcon#%{(g:statuslineIcon.LeftIcon)}  " 分隔图标
 " set statusline+=%#StatusBoth2#\ \ %{gitbranch#name()}\                " Git 分支名称
-set statusline+=%#StatusBoth2#%{GitBranchStatus()}\                " Git 分支名称
-set statusline+=%{&readonly?'[x]':'[v]'}\     " 显示只读字符为 No-edit
-set statusline+=%#StatusBoth2Icon#
+set statusline+=%#StatusBoth2#\ %{GitBranchStatus()}                " Git 分支名称
+set statusline+=\ %{&readonly?'[x]':'[v]'}\    " 显示只读字符为 No-edit
+set statusline+=%#StatusBoth2Icon#%{(g:statuslineIcon.LeftIcon)}  " 分隔图标
 set statusline+=%#StatusCenter#\ %t\                " 当前文件名
-set statusline+=%m\                 " 修改标志 [+] 表示修改未保存
-set statusline+=%=
+set statusline+=%m                 " 修改标志 [+] 表示修改未保存
+set statusline+=%=                        " 左右分界线
 set statusline+=\ %l/%L\ %p%%\       " 当前行号:列号
-set statusline+=%#StatusBoth2Icon#
+set statusline+=%#StatusBoth2Icon#%{(g:statuslineIcon.RightIcon)}   " 分隔图标
+set statusline+=%#StatusBoth2#\ %{&fileencoding}\    " 文件编码
 set statusline+=%#StatusBoth2#\ %{&fileencoding}\    " 文件编码
 set statusline+=%{&fileformat}\       " 换行符格式（unix/dos）
 set statusline+=%{&filetype}\             " 文件类型（filetype）
-set statusline+=%#StatusCharIcon#
+set statusline+=%#StatusCharIcon#%{(g:statuslineIcon.RightIcon)}      " 分隔图标
 set statusline+=%#StatusChar#\ I\ LOVE\ DJL\  " 字符
+
 
 "标签页
 set showtabline=2 " 2 总是显示标签页，0 不显示，1 出现多个标签页才显示
 set tabpagemax=15 " 最多可以打开15个标签页，默认10
 
-set list                   " 显示 <Tab> 和 <EOL>
-" 控制列表符号
+" \eol:        回车
+" \tab:        Tab
+" \trail       行尾空格
+" \space:      单词间的空格
+" \nbsp        不可断空格
+" \extends     屏幕右侧隐藏文本
+" \precedes    屏幕左侧隐藏文本
+set list
 set listchars=
-	\eol:\ ,
+	\eol:\↴,
 	\tab:\|\ ,
 	\trail:.,
-	\extends:>,
-	\precedes:<
+	\space:\ ,
+	\nbsp:+,
+	\extends:»,
+	\precedes:«
 
 " 控制窗口字符
 set fillchars=
@@ -245,11 +264,12 @@ set completeopt=
 	\menuone,
 	\noselect
 
-set shortmess+=c                          " 补全时不显示过多信息
+set shortmess+=c                          " a
 set pumheight=10                          " 补全菜单最大显示行数
 
-
-set wildmode=longest:full,full  " 选择最长匹配项并展开所有匹配项
+set wildmode=longest:
+	\full,
+	\full  " 选择最长匹配项并展开所有匹配项
 
 " 窗口
 set splitright " 新建窗口时, 窗口会往右边放
@@ -262,14 +282,14 @@ set hidden  " 允许在不保存的情况下切换缓冲区
 
 " 禁止声音警告
 set noerrorbells  " 禁止错误提示音
-" set visualbell  " 代替声音警告为可视警告
+" set visualbell  " 代替声音警告为全屏高亮
 
 " ========== 编辑体验 ==========
 
 " 拼写检查设置（已经设置了autocmd）
-" set spell                    " 开启拼写检查
-" set spelllang=en_us          " 设置拼写检查语言为美式英语
-" set complete+=kspell " 设置补全来源为拼写检查
+set nospell                    " 开启拼写检查
+set spelllang=en_us          " 设置拼写检查语言为美式英语
+set complete+=kspell " 设置补全来源为拼写检查
 
 set eof  " 确保文件以换行符结尾
 

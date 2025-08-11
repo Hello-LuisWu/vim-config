@@ -1,82 +1,16 @@
 " ------------------------------------------------------------------------------
 " Author   : Luis Wu
 " Editor   : VIM
-" Date     : 2025-07-15 22:02
+" Date     : 2025-08-11 03:43
 " Position : /Users/luis/.config/vimrc/maps.vim
 " System   : Darwin 24.3.0
 " ------------------------------------------------------------------------------
-
-function! InsertSignatureSmart()
-    let l:date = strftime('%Y-%m-%d %H:%M')
-    let l:pos = expand('%:p')
-    " 获取操作系统信息
-    if has('unix')
-        let l:sysinfo = substitute(system('uname -sr'), '\n', '', '')
-    elseif has('win32') || has('win64')
-        let l:sysinfo = substitute(system('ver'), '\n', '', '')
-    else
-        let l:sysinfo = 'Unknown OS'
-    endif
-
-    " 根据文件类型选择注释符
-    if &filetype ==# 'vim'
-        let l:cmt = '"'
-    elseif &filetype ==# 'lua'
-        let l:cmt = '--'
-    elseif &filetype ==# 'python'
-        let l:cmt = '#'
-    elseif &filetype ==# 'toml'
-        let l:cmt = '#'
-    elseif &filetype ==# 'c' || &filetype ==# 'cpp' || &filetype ==# 'java'
-        let l:cmt = '//'
-    else
-        let l:cmt = '#'
-    endif
-    call append(line('.') - 1, [
-        \ l:cmt . ' ------------------------------------------------------------------------------',
-        \ l:cmt . ' Author   : Luis Wu',
-        \ l:cmt . ' Editor   : VIM',
-        \ l:cmt . ' Date     : ' . l:date,
-        \ l:cmt . ' Position : ' . l:pos,
-        \ l:cmt . ' System   : ' . l:sysinfo,
-        \ l:cmt . ' ------------------------------------------------------------------------------'
-        \ ])
-endfunction
-" 更新签名中的日期
-function! UpdateSignatureDate()
-    let l:date = strftime('%Y-%m-%d %H:%M')
-    let l:pattern = '^\s*["#/-]\?\s*Date\s*:\s*\zs.*'
-    " 遍历前 20 行，找到包含 Date 的注释
-    for lnum in range(1, 20)
-        let line_content = getline(lnum)
-        if line_content =~ 'Date\s*:'
-            " 替换当前行的日期部分
-            let newline = substitute(line_content, l:pattern, l:date, '')
-            call setline(lnum, newline)
-            echo "✔ 日期已更新: " . l:date
-            return
-        endif
-    endfor
-    echo "⚠ 未找到 Date 行"
-endfunction
-nnoremap <C-u> :call UpdateSignatureDate()<CR>
-nnoremap <C-i> ggO<C-[>:call InsertSignatureSmart()<CR>
-
-
-nnoremap <C-f> <C-f>zz
-nnoremap <C-b> <C-b>zz
-
-
 
 " 基础 以空格键为先导键
 let mapleader = " "
 inoremap jj <C-[>
 nnoremap U <C-r>
 nnoremap <CR> :set wrap!<CR>
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
 nnoremap <C-r> :w<CR>:source %<CR>
 imap \\ <C-[>/<++><CR>:nohlsearch<CR>c4l
 nnoremap <tab> :
@@ -85,6 +19,13 @@ nnoremap <S-tab> /
 " nnoremap \ /
 nnoremap <silent> <BS> :nohls<CR>
 nnoremap gF  gg=G
+
+nnoremap s <Plug>(easymotion-prefix)
+
+
+
+" nmap j <Plug>(accelerated_jk_gj)
+" nmap k <Plug>(accelerated_jk_gk)
 
 inoremap HH <C-[>I
 inoremap LL <C-[>A

@@ -13,8 +13,8 @@ let g:lightline = {
 \		   ['fileencoding'],
 \		   ['filetype'],
 \		]
-\	 },
-\	 'component_function': {
+\	},
+\	'component_function': {
 \		'Love': 'gitbranch#name'
-\	 },
+\	},
 \ }

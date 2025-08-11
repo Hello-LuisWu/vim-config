@@ -17,4 +17,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'https://gitee.com/hello-luiswu/vim-commentary.git'
 	Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 	Plug 'https://gitee.com/hello-luiswu/coc.nvim.git', {'branch': 'release'}
+	Plug 'https://gitee.com/hello-luiswu/vim-easymotion.git'
+	Plug 'https://gitee.com/hello-luiswu/accelerated-jk.git'
+	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 call plug#end()
