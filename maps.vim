@@ -22,7 +22,8 @@ nnoremap gF  gg=G
 
 nnoremap s <Plug>(easymotion-prefix)
 
-
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
 
 " nmap j <Plug>(accelerated_jk_gj)
 " nmap k <Plug>(accelerated_jk_gk)
@@ -224,8 +225,6 @@ autocmd Filetype markdown inoremap !! #<Space>
 autocmd Filetype markdown inoremap @@ ##<Space>
 autocmd Filetype markdown inoremap ## ###<Space>
 autocmd Filetype markdown inoremap $$ ####<Space>
-
-
 
 nnoremap <Leader>ga :!git add .<CR>
 nnoremap <Leader>gs :!git status<CR>

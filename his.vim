@@ -78,6 +78,8 @@ highlight StatusLineNC cterm=bold ctermfg=80 ctermbg=233 guibg=#222222 guifg=#55
 highlight StatusLineTerm cterm=bold ctermfg=187 ctermbg=240
 " 未聚焦终端窗口状态栏样式
 highlight StatusLineTermNC cterm=bold ctermfg=80 ctermbg=233
+" 控制左侧标记列
+highlight SignColumn
 
 " 闭合折叠的线样式
 highlight Folded cterm=bold ctermbg=234 guifg=#00ffff guibg=#4c4c4c ctermfg=239 guifg=#888888
@@ -88,7 +90,3 @@ highlight CursorLineFold cterm=bold ctermbg=9 ctermfg=blue guibg=#444445 guifg=b
 " :showmode 时模式字符的样式.如：-- INSERT --
 highlight ModeMsg  cterm=none ctermbg=blue
 
-" 状态行样式
-hi User1 cterm=bold ctermbg=68 ctermfg=255 guibg=#5f87ff guifg=#eeeeee
-hi User2 ctermbg=240 ctermfg=250 cterm=bold
-hi User3 ctermbg=235 ctermfg=243 cterm=none

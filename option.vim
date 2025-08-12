@@ -22,6 +22,42 @@ set fileencodings=
 	\gbk,gb2312,
 	\cp936
 
+" 定义高亮覆盖函数
+function! SetTransparentBackground()
+	" highlight Normal guibg=NONE ctermbg=NONE
+	highlight EndOfBuffer guibg=NONE ctermbg=NONE guifg=#1e1e1e ctermfg=NONE
+endfunction
+
+" 创建高优先级自动命令组
+augroup TransparentBackground
+  autocmd!
+  " 在 Vim 完全启动后设置
+  autocmd VimEnter * call SetTransparentBackground()
+
+  " 每次切换配色方案后重新设置
+  autocmd ColorScheme * call SetTransparentBackground()
+
+  " 插件加载完成后设置（针对插件覆盖的情况）
+  autocmd User PlugLoaded call SetTransparentBackground()
+
+  " 文件类型检测完成后设置
+  autocmd FileType * call SetTransparentBackground()
+
+  " 会话加载后设置
+  autocmd SessionLoadPost * call SetTransparentBackground()
+augroup END
+
+" 立即执行一次（如果已经启动）
+if has('vim_starting')
+  " 启动过程中稍后执行
+  autocmd VimEnter * call SetTransparentBackground()
+else
+  " 如果 Vim 已经启动，立即执行
+  call SetTransparentBackground()
+endif
+
+
+
 set termencoding=utf-8
 " 非所有 Vim 都编译支持中文菜单，加上判断防止报错
 if exists('+langmenu')
@@ -254,7 +290,7 @@ set listchars=
 " 控制窗口字符
 set fillchars=
 	\vert:\|,
-	\eob:\
+	\eob:-
 
 " 设置补全菜单行为
 set wildmenu " 在命令模式下, 按 Tab 键显示命令菜单 (默认)
@@ -333,6 +369,7 @@ set autoread " 在 vim 以外编辑文件时,vim 里的文件会自动刷新
 filetype on " 检测文件类型
 filetype plugin on  " 启用文件类型插件
 filetype indent on  " 启用文件类型相关的缩进
+filetype detect     " 启用自动文件类型检测
 set showmatch "显示匹配的括号
 
 " ========== 性能优化 ==========
