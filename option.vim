@@ -24,8 +24,34 @@ set fileencodings=
 
 " 定义高亮覆盖函数
 function! SetTransparentBackground()
-	" highlight Normal guibg=NONE ctermbg=NONE
-	highlight EndOfBuffer guibg=NONE ctermbg=NONE guifg=#1e1e1e ctermfg=NONE
+	" 基础透明设置
+	highlight Normal     ctermbg=NONE guibg=NONE
+	" highlight NonText    ctermbg=NONE guibg=NONE  " ~符号区域
+	highlight EndOfBuffer ctermbg=NONE guibg=NONE " 文件末尾空白
+
+	" 行号相关
+	highlight LineNr     ctermbg=NONE guibg=NONE
+	highlight CursorLineNr ctermbg=NONE guibg=NONE
+
+	" 状态栏
+	highlight StatusLine   ctermbg=NONE guibg=NONE
+	highlight StatusLineNC ctermbg=NONE guibg=NONE  " 非活动窗口状态栏
+
+	" 侧边栏/分割线
+	highlight VertSplit   ctermbg=NONE guibg=NONE   " 垂直分割线
+	highlight SignColumn  ctermbg=NONE guibg=NONE   " 标记列(git等)
+
+	" 特殊区域
+	highlight Folded      ctermbg=NONE guibg=NONE   " 折叠代码
+	highlight FoldColumn  ctermbg=NONE guibg=NONE
+	highlight ColorColumn ctermbg=NONE guibg=NONE   " 颜色列
+	highlight Conceal     ctermbg=NONE guibg=NONE   " 隐藏字符
+
+	" 浮动窗口
+	highlight Pmenu       ctermbg=NONE guibg=NONE   " 补全菜单
+	highlight PmenuSel    ctermbg=Grey guibg=#3a3a3a  " 选中项(保留轻微背景)
+	highlight FloatBorder ctermbg=NONE guibg=NONE   " 浮动窗口边框
+
 endfunction
 
 " 创建高优先级自动命令组
@@ -247,7 +273,7 @@ let g:statuslineIcon = {
 	\ 'RightIcon2':  '',
 \}
 
-set statusline+=%#StatusLmode#\ %{(g:currentmode[mode()])}\            " 模式
+set statusline+=%#StatusLmode#\ \ %{(g:currentmode[mode()])}\            " 模式
 set statusline+=%#StatusLmodeIcon#%{(g:statuslineIcon.LeftIcon)}  " 分隔图标
 " set statusline+=%#StatusBoth2#\ \ %{gitbranch#name()}\                " Git 分支名称
 set statusline+=%#StatusBoth2#\ %{GitBranchStatus()}                " Git 分支名称
@@ -258,7 +284,6 @@ set statusline+=%m                 " 修改标志 [+] 表示修改未保存
 set statusline+=%=                        " 左右分界线
 set statusline+=\ %l/%L\ %p%%\       " 当前行号:列号
 set statusline+=%#StatusBoth2Icon#%{(g:statuslineIcon.RightIcon)}   " 分隔图标
-set statusline+=%#StatusBoth2#\ %{&fileencoding}\    " 文件编码
 set statusline+=%#StatusBoth2#\ %{&fileencoding}\    " 文件编码
 set statusline+=%{&fileformat}\       " 换行符格式（unix/dos）
 set statusline+=%{&filetype}\             " 文件类型（filetype）

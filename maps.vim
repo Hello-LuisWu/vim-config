@@ -6,6 +6,11 @@
 " System   : Darwin 24.3.0
 " ------------------------------------------------------------------------------
 
+nnoremap <c-e> :NERDTreeToggle<CR>
+
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+
 " 基础 以空格键为先导键
 let mapleader = " "
 inoremap jj <C-[>
@@ -21,12 +26,6 @@ nnoremap <silent> <BS> :nohls<CR>
 nnoremap gF  gg=G
 
 nnoremap s <Plug>(easymotion-prefix)
-
-nmap j <Plug>(accelerated_jk_gj)
-nmap k <Plug>(accelerated_jk_gk)
-
-" nmap j <Plug>(accelerated_jk_gj)
-" nmap k <Plug>(accelerated_jk_gk)
 
 inoremap HH <C-[>I
 inoremap LL <C-[>A
@@ -72,11 +71,6 @@ for mode in ['n', 'x', 'i']
 	execute mode . 'noremap <down> <Nop>'
 endfor
 
-" 插入签名注释
-" nnoremap <Leader>za ggO<Esc>O" Author: Luis Wu<CR>" Editor: VIM<CR>" Datesss: <C-r>=strftime("%Y-%m-%d %H:%M")<CR><Esc>
-" 更新编辑时间
-" nnoremap <Leader>zz /\"\ Datesss:\ <CR>cc" Datesss: <C-r>=strftime("%Y-%m-%d %H:%M")<CR><Esc>
-
 " 保持缩进状态
 xnoremap < <gv
 xnoremap > >gv
@@ -102,15 +96,6 @@ nnoremap <Leader>sl :%s/\<<C-r><C-w>\>/
 nnoremap <Leader>si :%s//gc<left><left><left>
 " 所选文本替换
 xnoremap <Leader>s "hy:s/<C-r>h//<Left>
-
-" sudo 保存
-" cnoremap w!! w !sudo tee > /dev/null %
-
-" 打开 vim 配置文件
-nnoremap <Leader>ev :e $MYVIMRC<CR>
-nnoremap <Leader>eo :e ~/.config/vimrc/option.vim<CR>
-nnoremap <Leader>ek :e ~/.config/vimrc/maps.vim<CR>
-nnoremap <Leader>ea :e ~/.config/vimrc/autocmd.vim<CR>
 
 " 用法：:H keyword 即可高亮某个关键字
 command! -nargs=1 H let @/ = <q-args> | set hlsearch
@@ -186,12 +171,6 @@ function! s:RenameFile(newname)
 endfunction
 nnoremap <leader>wr :Rename<space>  " 重命名文件
 
-nnoremap <C-f> <C-f>zz
-nnoremap <C-b> <C-b>zz
-" 可视模式下粘贴后保持选中状态（便于多次粘贴或格式调整）
-vnoremap p pgv<Esc>
-nnoremap <c-e> :NERDTreeToggle<CR>
-
 " nnoremap ,a mpgUiW"pciW<C-R>=substitute(@p,'-','_','ge')<CR><ESC>`p:delm p<cr>
 " inoremap ,a <ESC>mpgUiW"pciW<C-R>=substitute(@p,'-','_','ge')<CR><ESC>`p:delm p<CR>a
 
@@ -226,9 +205,5 @@ autocmd Filetype markdown inoremap @@ ##<Space>
 autocmd Filetype markdown inoremap ## ###<Space>
 autocmd Filetype markdown inoremap $$ ####<Space>
 
-nnoremap <Leader>ga :!git add .<CR>
-nnoremap <Leader>gs :!git status<CR>
-nnoremap <Leader>gc :!git commit -m ""<Left>
-nnoremap <Leader>gp :!git push<CR>
 " Vim 里用这个（打开新窗口运行 shell）
-nnoremap <C-t> :terminal<CR>
+nnoremap <silent> <C-t> :terminal<CR>
