@@ -21,14 +21,14 @@
 <!-- vim-markdown-toc -->
 ### 克隆 vimrc
 
-```
+``` sh
 git clone --depth 1 https://github.com/Hello-LuisWu/vim-dotfiles.git ~/.config/vimrc
 ```
 
 
 ### 安装 vim-plug
 
-```
+``` sh
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://gitee.com/hello-luiswu/vim-plug/raw/master/plug.vim
 ```
@@ -40,7 +40,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 </summary>
 输入命令
 
-```
+``` sh
 cd ~/.vim/autoload/
 ```
 
@@ -48,7 +48,7 @@ cd ~/.vim/autoload/
 
 用以下命令删除多余文件
 
-```
+``` sh
 ls -a ./ | grep -v plug.vim | xargs rm -rf
 
 或
@@ -64,7 +64,7 @@ ls -a ./ | egrep -v '(plug.vim)' | xargs rm -rf
 
 终端执行如下代码：
 
-```
+``` sh
 cat << 'EOF' > ~/.vimrc
 " plugins 文件 最好优先加载。这配置才能读取主题等插件文件
 source ~/.config/vimrc/plugins.vim
@@ -83,12 +83,11 @@ EOF
 
 使用以下vim命令安装插件
 
-```
+``` sh
 :PlugInstall
 ```
 
 ## 快捷键映射
-
 
 ### ✅ 基础映射
 

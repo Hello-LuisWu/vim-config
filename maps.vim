@@ -5,16 +5,30 @@
 " Position : /Users/luis/.config/vimrc/maps.vim
 " System   : Darwin 24.3.0
 " ------------------------------------------------------------------------------
+" 基础 以空格键为先导键
+let mapleader = " "
+
+" fzf 模糊搜索
+" 搜索文件
+nnoremap <Leader>ff :Files<CR>
+" 搜索缓冲区
+nnoremap <Leader>fb :Buffers<CR>
+" 全局内容搜索
+nnoremap <Leader>fg :Rg<CR>
+
+" Tagbar 代码结构
+nnoremap <Leader>T :TagbarToggle<CR>
+let g:tagbar_width = 30               " 侧边栏宽度
 
 nnoremap <c-e> :NERDTreeToggle<CR>
 
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 
-" 基础 以空格键为先导键
-let mapleader = " "
-inoremap jj <C-[>
-nnoremap U <C-r>
+nnoremap s <Plug>(easymotion-prefix)
+
+imap jj <C-[>
+nmap U <C-r>
 nnoremap <CR> :set wrap!<CR>
 nnoremap <C-r> :w<CR>:source %<CR>
 imap \\ <C-[>/<++><CR>:nohlsearch<CR>c4l
@@ -22,17 +36,15 @@ nnoremap <tab> :
 nnoremap ; :
 nnoremap <S-tab> /
 " nnoremap \ /
-nnoremap <silent> <BS> :nohls<CR>
+nnoremap <silent> <BS> :set hls!<CR>
 nnoremap gF  gg=G
-
-nnoremap s <Plug>(easymotion-prefix)
 
 inoremap HH <C-[>I
 inoremap LL <C-[>A
 
 " 再制
 inoremap <C-d> <C-[>yypA
-nnoremap <C-d> <C-[>yyp
+nnoremap <C-d> yyp
 
 for mode in ['n', 'x']
 	execute mode . 'noremap q: <Nop>'
@@ -109,23 +121,10 @@ nnoremap N Nzzzv
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " inoremap <C-f> <C-n>
 
-" fzf 模糊搜索
-" 搜索文件
-nnoremap <Leader>ff :Files<CR>
-" 搜索缓冲区
-nnoremap <Leader>fb :Buffers<CR>
-" 全局内容搜索
-nnoremap <Leader>fg :Rg<CR>
-
-" Tagbar 代码结构
-nnoremap <Leader>T :TagbarToggle<CR>
-let g:tagbar_width = 30               " 侧边栏宽度
-
-
-nnoremap <left> :vertical resize -2<CR>
-nnoremap <right> :vertical resize +2<CR>
-nnoremap <down> :resize +2<CR>
-nnoremap <up> :resize -2<CR>
+nnoremap <silent> <S-left> :vertical resize -2<CR>
+nnoremap <silent> <S-right> :vertical resize +2<CR>
+nnoremap <silent> <S-down> :resize +2<CR>
+nnoremap <silent> <S-up> :resize -2<CR>
 
 " tab 配置
 nnoremap <leader><Tab> :tabnext<CR>

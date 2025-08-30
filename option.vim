@@ -22,72 +22,10 @@ set fileencodings=
 	\gbk,gb2312,
 	\cp936
 
-" 定义高亮覆盖函数
-function! SetTransparentBackground()
-	" 基础透明设置
-	highlight Normal     ctermbg=NONE guibg=NONE
-	" highlight NonText    ctermbg=NONE guibg=NONE  " ~符号区域
-	highlight EndOfBuffer ctermbg=NONE guibg=NONE " 文件末尾空白
-
-	" 行号相关
-	highlight LineNr     ctermbg=NONE guibg=NONE
-	highlight CursorLineNr ctermbg=NONE guibg=NONE
-
-	" 状态栏
-	highlight StatusLine   ctermbg=NONE guibg=NONE
-	highlight StatusLineNC ctermbg=NONE guibg=NONE  " 非活动窗口状态栏
-
-	" 侧边栏/分割线
-	highlight VertSplit   ctermbg=NONE guibg=NONE   " 垂直分割线
-	highlight SignColumn  ctermbg=NONE guibg=NONE   " 标记列(git等)
-
-	" 特殊区域
-	highlight Folded      ctermbg=NONE guibg=NONE   " 折叠代码
-	highlight FoldColumn  ctermbg=NONE guibg=NONE
-	highlight ColorColumn ctermbg=NONE guibg=NONE   " 颜色列
-	highlight Conceal     ctermbg=NONE guibg=NONE   " 隐藏字符
-
-	" 浮动窗口
-	highlight Pmenu       ctermbg=NONE guibg=NONE   " 补全菜单
-	highlight PmenuSel    ctermbg=Grey guibg=#3a3a3a  " 选中项(保留轻微背景)
-	highlight FloatBorder ctermbg=NONE guibg=NONE   " 浮动窗口边框
-
-endfunction
-
-" 创建高优先级自动命令组
-augroup TransparentBackground
-  autocmd!
-  " 在 Vim 完全启动后设置
-  autocmd VimEnter * call SetTransparentBackground()
-
-  " 每次切换配色方案后重新设置
-  autocmd ColorScheme * call SetTransparentBackground()
-
-  " 插件加载完成后设置（针对插件覆盖的情况）
-  autocmd User PlugLoaded call SetTransparentBackground()
-
-  " 文件类型检测完成后设置
-  autocmd FileType * call SetTransparentBackground()
-
-  " 会话加载后设置
-  autocmd SessionLoadPost * call SetTransparentBackground()
-augroup END
-
-" 立即执行一次（如果已经启动）
-if has('vim_starting')
-  " 启动过程中稍后执行
-  autocmd VimEnter * call SetTransparentBackground()
-else
-  " 如果 Vim 已经启动，立即执行
-  call SetTransparentBackground()
-endif
-
-
-
 set termencoding=utf-8
 " 非所有 Vim 都编译支持中文菜单，加上判断防止报错
 if exists('+langmenu')
-  set langmenu=zh_CN.UTF-8
+	set langmenu=zh_CN.UTF-8
 endif
 set helplang=cn " 查询帮助显示的语言
 " set backspace=2 " 让 backspace 生效.不加参数则只能删除新添加的内容
@@ -117,7 +55,6 @@ set fileformats=
 set history=1000  " 命令历史记录数
 set undolevels=1000  " 撤销历史深度
 set undoreload=10000  " 重新载入文件时保留的撤销历史条目
-
 
 " ========== 显示与界面 ==========
 
@@ -191,8 +128,6 @@ let g:currentmode={
 	\ 'Rv' : 'V·Replace',
 	\ 'c'  : 'Command',
 \}
-
-
 
 let g:status_colors = {
 	\ 'L_mode_fg':      '#333333',
@@ -268,9 +203,8 @@ endfunction
 
 let g:statuslineIcon = {
 	\ 'LeftIcon':    '',
+	\
 	\ 'RightIcon':   '',
-	\ 'LeftIcon2':   '',
-	\ 'RightIcon2':  '',
 \}
 
 set statusline+=%#StatusLmode#\ \ %{(g:currentmode[mode()])}\            " 模式
@@ -280,6 +214,8 @@ set statusline+=%#StatusBoth2#\ %{GitBranchStatus()}                " Git 分支
 set statusline+=\ %{&readonly?'[x]':'[v]'}\    " 显示只读字符为 No-edit
 set statusline+=%#StatusBoth2Icon#%{(g:statuslineIcon.LeftIcon)}  " 分隔图标
 set statusline+=%#StatusCenter#\ %t\                " 当前文件名
+
+set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}                 " 修改标志 [+] 表示修改未保存
 set statusline+=%m                 " 修改标志 [+] 表示修改未保存
 set statusline+=%=                        " 左右分界线
 set statusline+=\ %l/%L\ %p%%\       " 当前行号:列号
@@ -304,7 +240,7 @@ set tabpagemax=15 " 最多可以打开15个标签页，默认10
 " \precedes    屏幕左侧隐藏文本
 set list
 set listchars=
-	\eol:\↴,
+	\eol:\󰌑,
 	\tab:\|\ ,
 	\trail:.,
 	\space:\ ,
@@ -370,8 +306,6 @@ set ignorecase      " 搜索忽略大小写
 set smartcase       " 如果搜索包含大写则区分大小写
 set whichwrap+=<,>,[,],h,l " 允许光标在行首或行尾继续移动到上一行或下一行
 
-" set gcr=a:underline-blinkwait1
-
 " 剪贴板集成（需要 Vim 编译时支持 +clipboard）
 if has('mac')
   set clipboard=unnamed  " macOS
@@ -382,7 +316,6 @@ endif
 set formatoptions+=mM   "  允许多段落换行处理
 
 set title " 在终端标题显示文件名
-
 
 set mouse=a  " 所有模式启用鼠标（调整窗口大小、点击跳转等）
 " set selection=exclusive   " 在可是模式下是否选中光标下的字符,要和selectmode配合使用
@@ -400,5 +333,5 @@ set showmatch "显示匹配的括号
 " ========== 性能优化 ==========
 set lazyredraw          " 减少重绘（在宏执行时提升性能）
 set ttyfast             " 优化终端渲染
-set timeoutlen=500      " 快捷键超时时间（毫秒）
+set timeoutlen=300     " 快捷键超时时间（毫秒）
 set updatetime=300  " 设置更短的更新时间（默认 4000 毫秒），提高响应速度和体验
