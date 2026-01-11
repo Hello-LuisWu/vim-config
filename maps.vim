@@ -1,7 +1,7 @@
 " ------------------------------------------------------------------------------
 " Author   : Luis Wu
 " Editor   : VIM
-" Date     : 2025-08-11 03:43
+" Date     : 2025-08-30 21:30
 " Position : /Users/luis/.config/vimrc/maps.vim
 " System   : Darwin 24.3.0
 " ------------------------------------------------------------------------------
@@ -162,28 +162,17 @@ function! s:RenameFile(newname)
 	if filereadable(old)
 		call rename(old, a:newname)
 		exec 'edit ' . a:newname
-
 		call delete(old)
 	else
 		echoerr "当前缓冲区文件不存在或不可重命名"
 	endif
 endfunction
-nnoremap <leader>wr :Rename<space>  " 重命名文件
+
+" 重命名文件
+nnoremap <leader>wr :Rename<space>
 
 " nnoremap ,a mpgUiW"pciW<C-R>=substitute(@p,'-','_','ge')<CR><ESC>`p:delm p<cr>
 " inoremap ,a <ESC>mpgUiW"pciW<C-R>=substitute(@p,'-','_','ge')<CR><ESC>`p:delm p<CR>a
-
-" 将选中内容转为小写
-vnoremap <leader>u gu
-
-" 将选中内容转为大写
-vnoremap <leader>U gU
-
-" 当前单词一键大写（normal模式）
-nnoremap <leader>U gUiw
-
-" 当前单词一键小写
-nnoremap <leader>u guiw
 
 " This is maps setup of the Markdown ===
 autocmd Filetype markdown inoremap --- <Enter>---<Enter><br/><Enter>

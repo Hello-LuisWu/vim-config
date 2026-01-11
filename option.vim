@@ -306,11 +306,13 @@ set ignorecase      " 搜索忽略大小写
 set smartcase       " 如果搜索包含大写则区分大小写
 set whichwrap+=<,>,[,],h,l " 允许光标在行首或行尾继续移动到上一行或下一行
 
-" 剪贴板集成（需要 Vim 编译时支持 +clipboard）
+" 跨系统自动适配剪贴板（macOS + Linux/WSL + Windows）
 if has('mac')
-  set clipboard=unnamed  " macOS
+  set clipboard=unnamed  " macOS 系统剪贴板共享
 elseif has('unix')
-  set clipboard=unnamedplus " 与系统剪贴板共享（Linux/WSL）
+  set clipboard=unnamedplus " Linux / WSL 系统剪贴板共享
+elseif has('win32')
+  set clipboard=unnamedplus " Windows 系统剪贴板共享 (Win10/11 全适配)
 endif
 
 set formatoptions+=mM   "  允许多段落换行处理
