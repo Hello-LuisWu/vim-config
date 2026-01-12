@@ -28,7 +28,7 @@ nmap k <Plug>(accelerated_jk_gk)
 nnoremap s <Plug>(easymotion-prefix)
 
 imap jj <C-[>
-nmap U <C-r>
+nnoremap U <C-r>
 nnoremap <CR> :set wrap!<CR>
 nnoremap <C-r> :w<CR>:source %<CR>
 imap \\ <C-[>/<++><CR>:nohlsearch<CR>c4l
