@@ -94,7 +94,6 @@ set statusline+=%#StatusBoth2#\ %{GitBranchStatus()}                " Git 分支
 set statusline+=\ %{&readonly?'[x]':'[v]'}\    " 显示只读字符为 No-edit
 set statusline+=%#StatusBoth2Icon#%{(g:statuslineIcon.LeftIcon)}  " 分隔图标
 set statusline+=%#StatusCenter#\ %t\                " 当前文件名
-
 set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}                 " 修改标志 [+] 表示修改未保存
 set statusline+=%m                 " 修改标志 [+] 表示修改未保存
 set statusline+=%=                        " 左右分界线
