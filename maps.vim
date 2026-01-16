@@ -8,6 +8,9 @@
 " 基础 以空格键为先导键
 let mapleader = " "
 
+
+map <silent> <C-\> :Commentary<CR>
+
 " fzf 模糊搜索
 " 搜索文件
 nnoremap <Leader>ff :Files<CR>

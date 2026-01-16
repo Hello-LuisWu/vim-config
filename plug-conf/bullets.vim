@@ -35,4 +35,4 @@ let g:bullets_custom_mappings = [
 let g:bullets_line_spacing = 1 " default = 1
 
 
-let g:bullets_checkbox_partials_toggle = 0 " default = 1
+let g:bullets_checkbox_partials_toggle = 1 " default = 1
