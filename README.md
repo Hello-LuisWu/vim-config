@@ -81,26 +81,6 @@ ls -a ./ | egrep -v '(plug.vim)' | xargs rm -rf
 
 </details>
 
-### 添加配置内容
-
-终端执行如下代码：
-
-``` sh
-cat << 'EOF' > ~/.vimrc
-" plugins 文件 最好优先加载。这配置才能读取主题等插件文件
-source ~/.config/vimrc/plugins.vim
-source ~/.config/vimrc/option.vim
-source ~/.config/vimrc/maps.vim
-source ~/.config/vimrc/autocmd.vim
-" 自动加载 ~/.config/vimrc/plug-conf 下的所有 .vim 文件
-let s:plugin_dir = expand('~/.config/vimrc/plug-conf')
-for s:file in split(glob(s:plugin_dir . '/*.vim'), '\n')
-  if filereadable(s:file)
-    execute 'source' fnameescape(s:file)
-  endif
-endfor
-EOF
-```
 
 使用以下vim命令安装插件
 
