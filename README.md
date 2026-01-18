@@ -4,9 +4,8 @@
 ### 克隆 vimrc
 
 ``` sh
-git clone --depth 1 https://github.com/Hello-LuisWu/vim-dotfiles.git ~/.config/vimrc
+git clone --depth 1 https://github.com/Hello-LuisWu/vim-dotfiles.git ~/.vim/vimrc
 ```
-
 
 ### 安装 vim-plug
 
