@@ -1,24 +1,6 @@
 # Usage
 
-<!-- vim-markdown-toc GFM -->
 
-    * [克隆 vimrc](#克隆-vimrc)
-    * [安装 vim-plug](#安装-vim-plug)
-    * [添加配置内容](#添加配置内容)
-* [快捷键映射](#快捷键映射)
-    * [✅ 基础映射](#-基础映射)
-    * [✅ 快速跳词/字符](#-快速跳词字符)
-    * [✅ 插入结构](#-插入结构)
-    * [✅ 方向键禁用](#-方向键禁用)
-    * [✅ 签名与注释维护](#-签名与注释维护)
-    * [✅ 替换相关映射](#-替换相关映射)
-    * [✅ 文件路径操作](#-文件路径操作)
-    * [✅ 搜索相关映射](#-搜索相关映射)
-    * [✅ 配置文件快捷访问](#-配置文件快捷访问)
-    * [✅ fzf / Tagbar 插件映射](#-fzf--tagbar-插件映射)
-    * [✅ Tab 页操作](#-tab-页操作)
-
-<!-- vim-markdown-toc -->
 ### 克隆 vimrc
 
 ``` sh
@@ -31,6 +13,45 @@ git clone --depth 1 https://github.com/Hello-LuisWu/vim-dotfiles.git ~/.config/v
 ``` sh
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://gitee.com/hello-luiswu/vim-plug/raw/master/plug.vim
+```
+
+### 引入配置文件
+
+在 vimrc文件里面将以下代码复制进去
+
+```vim
+" ~/.vimrc
+let g:config_dir = expand('~/.vim/vimrc')
+
+" 添加到 runtimepath
+execute 'set runtimepath^=' . g:config_dir
+
+" 优先加载 plugins.vim
+let s:plugins_file = g:config_dir . '/plugins.vim'
+if filereadable(s:plugins_file)
+  execute 'source' s:plugins_file
+endif
+
+" 加载其他基础配置文件（排除已加载的和插件配置目录）
+for s:file in sort(split(glob(g:config_dir . '/*.vim'), '\n'))
+  if s:file !=# s:plugins_file
+    execute 'source' s:file
+  endif
+endfor
+
+" 最后加载插件配置目录
+let s:plug_conf_dir = g:config_dir . '/plug-conf'
+if isdirectory(s:plug_conf_dir)
+  for s:plugin_file in sort(split(glob(s:plug_conf_dir . '/*.vim'), '\n'))
+    execute 'source' s:plugin_file
+  endfor
+endif
+
+" 清理变量
+unlet s:plugins_file
+unlet s:file
+unlet s:plug_conf_dir
+unlet s:plugin_file
 ```
 
 
